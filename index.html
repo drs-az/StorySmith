@@ -35,14 +35,14 @@
     .site-header .container {
       display: flex;
       align-items: center;
-      justify-content: flex-start; /* change from space-between */
+      justify-content: flex-start;
       padding: 1rem 2rem;
     }
     .logo {
       height: 36px;
     }
     .nav-tools {
-      margin-left: auto;           /* push menu & hamburger to the right */
+      margin-left: auto;
       display: flex;
       align-items: center;
       gap: 1rem;
@@ -168,7 +168,7 @@
 </head>
 <body>
 
-  <!-- Header with logo + nav inside nav-tools -->
+  <!-- Header with logo + nav -->
   <header class="site-header">
     <div class="container">
       <a href="/">
@@ -178,7 +178,6 @@
           alt="StorySmith logo"
         />
       </a>
-
       <div class="nav-tools">
         <button class="hamburger" aria-label="Toggle menu">☰</button>
         <nav class="site-nav">
@@ -210,7 +209,28 @@
     <!-- Features Section -->
     <section class="section" id="features">
       <h2>Features</h2>
-      <!-- ...features as before... -->
+      <div class="features">
+        <div class="feature">
+          <div class="feature-icon">🖋️</div>
+          <h3>Full-Text Assistance</h3>
+          <p>StorySmith writes rich prose based on your ideas—whether you have a sentence or a scene in mind.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🗺️</div>
+          <h3>Story Map & Milestones</h3>
+          <p>Automatically divides your tale into ten bite-sized beats so you never lose momentum.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🎨</div>
+          <h3>Instant Scene Art</h3>
+          <p>Bring scenes to life with on-demand, cinematic illustrations—perfect for inspiration and sharing.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🧠</div>
+          <h3>Adaptive Coaching</h3>
+          <p>Get helpful prompts, tone tweaks, and “what if” twists whenever you’re stuck.</p>
+        </div>
+      </div>
     </section>
 
     <!-- Lifestyle Image Placeholder -->
@@ -223,7 +243,28 @@
     <!-- How It Works Section -->
     <section class="section" id="how-it-works">
       <h2>How It Works</h2>
-      <!-- ...steps as before... -->
+      <div class="steps">
+        <div class="step">
+          <div class="step-icon">1️⃣</div>
+          <h3>Share Your Spark</h3>
+          <p>Tell StorySmith any detail—a character, a mood, or even just “I want a happy ending.”</p>
+        </div>
+        <div class="step">
+          <div class="step-icon">2️⃣</div>
+          <h3>Watch It Unfold</h3>
+          <p>Each beat (≈5 pages) unfolds automatically. See plot, dialogue, and setting come to life.</p>
+        </div>
+        <div class="step">
+          <div class="step-icon">3️⃣</div>
+          <h3>Illustrate Key Moments</h3>
+          <p>After you’ve read a scene, StorySmith creates a gorgeous image—no design skills needed.</p>
+        </div>
+        <div class="step">
+          <div class="step-icon">4️⃣</div>
+          <h3>Refine & Share</h3>
+          <p>Polish dialogue, adjust pacing, then export your complete 50-page story or share snippets online.</p>
+        </div>
+      </div>
     </section>
 
     <!-- Sneak Peek Carousel Placeholder -->
