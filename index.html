@@ -134,6 +134,20 @@
       padding: 2rem 0;
     }
 
+    .logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.site-title {
+  font-family: 'Pacifico', cursive; /* or any cursive stack */
+  font-size: 1.5rem;
+  color: var(--text-dark);
+  margin-left: 0.5rem;
+  line-height: 1;
+}
+
     /* Mobile nav */
     @media (max-width: 600px) {
       .site-header .container {
@@ -162,32 +176,34 @@
       }
     }
   </style>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 </head>
 <body>
 
   <!-- Header with logo + nav -->
-  <header class="site-header">
-    <div class="container">
-      <a href="/">
-        <img
-          class="logo"
-          src="img/file_00000000977861fabb3034aadeedd3a4.png"
-          alt="StorySmith logo"
-        />
-      </a>
-      <div class="nav-tools">
-        <button class="hamburger" aria-label="Toggle menu">☰</button>
-        <nav class="site-nav">
-          <ul>
-            <li><a href="#features">Features</a></li>
-            <li><a href="#how-it-works">How It Works</a></li>
-            <li><a href="#pricing">Pricing</a></li>
-            <li><a href="#try">Try It Free</a></li>
-          </ul>
-        </nav>
-      </div>
+<header class="site-header">
+  <div class="container">
+    <a href="/" class="logo-link">
+      <img
+        class="logo"
+        src="img/file_00000000977861fabb3034aadeedd3a4.png"
+        alt="StorySmith logo"
+      />
+      <span class="site-title">StorySmith</span>
+    </a>
+    <div class="nav-tools">
+      <button class="hamburger" aria-label="Toggle menu">☰</button>
+      <nav class="site-nav">
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#try">Try It Free</a></li>
+        </ul>
+      </nav>
     </div>
-  </header>
+  </div>
+</header>
 
   <!-- Hero Section -->
   <div class="hero">
