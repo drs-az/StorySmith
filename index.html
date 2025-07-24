@@ -38,7 +38,6 @@
       margin-left: auto;
       display: flex;
       align-items: center;
-      gap: 1rem;
       position: relative;
     }
     .site-nav ul {
@@ -47,6 +46,7 @@
       gap: 1rem;
       margin: 0;
       padding: 0;
+      justify-content: center; /* center menu items */
     }
     .site-nav ul li a {
       display: inline-block;
@@ -54,25 +54,15 @@
       border-radius: 0.25rem;
       text-decoration: none;
       color: var(--text-dark);
-      font-weight: 600;
+      font-weight: 500;
       font-size: 0.95rem;
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
+      text-transform: none;  /* remove uppercase */
+      letter-spacing: normal; /* remove extra letter spacing */
       transition: background 0.2s, color 0.2s;
     }
     .site-nav ul li a:hover {
       background: var(--accent);
       color: #fff;
-    }
-    .site-nav .btn-primary {
-      background: var(--accent);
-      color: #fff;
-      padding: 0.5rem 1rem;
-      border-radius: 0.375rem;
-      transition: background 0.2s;
-    }
-    .site-nav .btn-primary:hover {
-      background: var(--accent-hover);
     }
     .hamburger {
       display: none;
@@ -192,7 +182,7 @@
             <li><a href="#features">Features</a></li>
             <li><a href="#how-it-works">How It Works</a></li>
             <li><a href="#pricing">Pricing</a></li>
-            <li><a class="btn-primary" href="#">Try It Free</a></li>
+            <li><a href="#try">Try It Free</a></li>
           </ul>
         </nav>
       </div>
