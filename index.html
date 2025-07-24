@@ -26,14 +26,42 @@
     h1, h2, h3 {
       margin-top: 0;
     }
+    /* Header */
     .site-header {
       background: #fff;
       border-bottom: 1px solid #eee;
-      padding: 1rem 0;
+    }
+    .site-header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem; /* override container padding */
     }
     .logo {
-      height: 100px;
+      height: 48px;
     }
+    .site-nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    .site-nav ul li a {
+      text-decoration: none;
+      color: var(--text-dark);
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .site-nav ul li a:hover {
+      color: var(--accent);
+    }
+    .site-nav .btn-primary {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+    }
+    /* Hero */
     .hero {
       text-align: center;
       padding: 4rem 1rem;
@@ -48,6 +76,10 @@
       border-radius: 0.375rem;
       font-size: 1rem;
       cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover {
+      background: #b88fb5;
     }
     .section {
       margin: 3rem 0;
@@ -78,6 +110,7 @@
       background: #eee;
       object-fit: cover;
     }
+    /* Footer */
     .site-footer {
       border-top: 1px solid #eee;
       background: #fafafa;
@@ -90,7 +123,7 @@
 </head>
 <body>
 
-  <!-- Header with logo -->
+  <!-- Header with logo + nav -->
   <header class="site-header">
     <div class="container">
       <a href="/">
@@ -100,6 +133,14 @@
           alt="StorySmith logo"
         />
       </a>
+      <nav class="site-nav">
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a class="btn-primary" href="#">Try It Free</a></li>
+        </ul>
+      </nav>
     </div>
   </header>
 
