@@ -31,19 +31,21 @@
     .site-header {
       background: #fff;
       border-bottom: 1px solid #eee;
-      position: relative;
     }
     .site-header .container {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start; /* change from space-between */
       padding: 1rem 2rem;
     }
     .logo {
       height: 36px;
     }
-    .site-nav {
-      position: relative;
+    .nav-tools {
+      margin-left: auto;           /* push menu & hamburger to the right */
+      display: flex;
+      align-items: center;
+      gap: 1rem;
     }
     .site-nav ul {
       list-style: none;
@@ -166,7 +168,7 @@
 </head>
 <body>
 
-  <!-- Header with logo + nav -->
+  <!-- Header with logo + nav inside nav-tools -->
   <header class="site-header">
     <div class="container">
       <a href="/">
@@ -176,15 +178,18 @@
           alt="StorySmith logo"
         />
       </a>
-      <button class="hamburger" aria-label="Toggle menu">☰</button>
-      <nav class="site-nav">
-        <ul>
-          <li><a href="#features">Features</a></li>
-          <li><a href="#how-it-works">How It Works</a></li>
-          <li><a href="#pricing">Pricing</a></li>
-          <li><a class="btn-primary" href="#">Try It Free</a></li>
-        </ul>
-      </nav>
+
+      <div class="nav-tools">
+        <button class="hamburger" aria-label="Toggle menu">☰</button>
+        <nav class="site-nav">
+          <ul>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a class="btn-primary" href="#">Try It Free</a></li>
+          </ul>
+        </nav>
+      </div>
     </div>
   </header>
 
