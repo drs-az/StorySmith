@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>StorySmith — Craft Your Voice</title>
+  <style>
+    :root {
+      --primary: #f8e1e7;
+      --accent: #cfa4c9;
+      --text-dark: #333;
+      --bg: #fff;
+    }
+    body {
+      margin: 0;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      color: var(--text-dark);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 2rem;
+    }
+    h1, h2, h3 {
+      margin-top: 0;
+    }
+    .site-header {
+      background: #fff;
+      border-bottom: 1px solid #eee;
+      padding: 1rem 0;
+    }
+    .logo {
+      height: 48px;
+    }
+    .hero {
+      text-align: center;
+      padding: 4rem 1rem;
+      background: var(--primary);
+      border-radius: 0.5rem;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.375rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .section {
+      margin: 3rem 0;
+    }
+    .features, .steps {
+      display: grid;
+      gap: 1.5rem;
+    }
+    .features {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+    .feature, .step {
+      background: #fafafa;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    .feature-icon, .step-icon {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+    }
+    .image-placeholder {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin: 2rem 0;
+      border: 2px dashed #ccc;
+      background: #eee;
+      object-fit: cover;
+    }
+    .site-footer {
+      border-top: 1px solid #eee;
+      background: #fafafa;
+    }
+    .site-footer .container {
+      text-align: center;
+      padding: 2rem 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header with logo -->
+  <header class="site-header">
+    <div class="container">
+      <a href="/">
+        <img
+          class="logo"
+          src="storysmith-logo.png"
+          alt="StorySmith logo"
+        />
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <img
+      class="image-placeholder"
+      src="placeholder-hero.png"
+      alt="Hero illustration placeholder"
+    />
+    <h1>Meet StorySmith</h1>
+    <p>Your personal co-author for writing heartfelt short stories—no experience required.</p>
+    <button class="btn-primary">Try StorySmith Free →</button>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container">
+    <!-- Features Section -->
+    <section class="section" id="features">
+      <h2>Features</h2>
+      <div class="features">
+        <div class="feature">
+          <div class="feature-icon">🖋️</div>
+          <h3>Full-Text Assistance</h3>
+          <p>StorySmith writes rich prose based on your ideas—whether you have a sentence or a scene in mind.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🗺️</div>
+          <h3>Story Map & Milestones</h3>
+          <p>Automatically divides your tale into ten bite-sized beats so you never lose momentum.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🎨</div>
+          <h3>Instant Scene Art</h3>
+          <p>Bring scenes to life with on-demand, cinematic illustrations—perfect for inspiration and sharing.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🧠</div>
+          <h3>Adaptive Coaching</h3>
+          <p>Get helpful prompts, tone tweaks, and “what if” twists whenever you’re stuck.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lifestyle Image Placeholder -->
+    <img
+      class="image-placeholder"
+      src="placeholder-lifestyle.png"
+      alt="Lifestyle collage placeholder"
+    />
+
+    <!-- How It Works Section -->
+    <section class="section" id="how-it-works">
+      <h2>How It Works</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-icon">1️⃣</div>
+          <h3>Share Your Spark</h3>
+          <p>Tell StorySmith any detail—a character, a mood, or even just “I want a happy ending.”</p>
+        </div>
+        <div class="step">
+          <div class="step-icon">2️⃣</div>
+          <h3>Watch It Unfold</h3>
+          <p>Each beat (≈5 pages) unfolds automatically. See plot, dialogue, and setting come to life.</p>
+        </div>
+        <div class="step">
+          <div class="step-icon">3️⃣</div>
+          <h3>Illustrate Key Moments</h3>
+          <p>After you’ve read a scene, StorySmith creates a gorgeous image—no design skills needed.</p>
+        </div>
+        <div class="step">
+          <div class="step-icon">4️⃣</div>
+          <h3>Refine & Share</h3>
+          <p>Polish dialogue, adjust pacing, then export your complete 50-page story or share snippets online.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sneak Peek Carousel Placeholder -->
+    <img
+      class="image-placeholder"
+      src="placeholder-carousel.png"
+      alt="Sneak peek carousel placeholder"
+    />
+
+    <!-- Call to Action -->
+    <div class="cta">
+      <h2>Ready to Tell Your Story?</h2>
+      <p>Join hundreds of women unlocking their creativity with StorySmith. No writing degree required—just your imagination.</p>
+      <button class="btn-primary">Start Your Free Trial →</button>
+    </div>
+  </div>
+
+  <!-- Footer with logo -->
+  <footer class="site-footer">
+    <div class="container">
+      <img
+        class="logo"
+        src="storysmith-logo.png"
+        alt="StorySmith logo"
+      />
+      <p style="color: #888; font-size: 0.9rem; margin: 1rem 0 0;">
+        © 2025 StorySmith. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>
