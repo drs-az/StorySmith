@@ -23,9 +23,7 @@
       margin: auto;
       padding: 2rem;
     }
-    h1, h2, h3 {
-      margin-top: 0;
-    }
+    h1, h2, h3 { margin-top: 0; }
 
     /* Header */
     .site-header {
@@ -38,14 +36,13 @@
       justify-content: flex-start;
       padding: 1rem 2rem;
     }
-    .logo {
-      height: 36px;
-    }
+    .logo { height: 36px; }
     .nav-tools {
       margin-left: auto;
       display: flex;
       align-items: center;
       gap: 1rem;
+      position: relative;
     }
     .site-nav ul {
       list-style: none;
@@ -67,8 +64,6 @@
       padding: 0.5rem 1rem;
       font-size: 0.9rem;
     }
-
-    /* Hamburger (mobile) */
     .hamburger {
       display: none;
       font-size: 1.5rem;
@@ -95,74 +90,53 @@
       cursor: pointer;
       transition: background 0.2s;
     }
-    .btn-primary:hover {
-      background: #b88fb5;
-    }
-    .section {
-      margin: 3rem 0;
-    }
-    .features, .steps {
-      display: grid;
-      gap: 1.5rem;
-    }
-    .features {
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    }
+    .btn-primary:hover { background: #b88fb5; }
+
+    .section { margin: 3rem 0; }
+    .features, .steps { display: grid; gap: 1.5rem; }
+    .features { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
     .feature, .step {
-      background: #fafafa;
-      padding: 1.5rem;
-      border-radius: 0.5rem;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      background: #fafafa; padding: 1.5rem;
+      border-radius: 0.5rem; box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     }
-    .feature-icon, .step-icon {
-      font-size: 2rem;
-      margin-bottom: 0.75rem;
-    }
+    .feature-icon, .step-icon { font-size: 2rem; margin-bottom: 0.75rem; }
     .image-placeholder {
-      display: block;
-      width: 100%;
-      height: auto;
-      margin: 2rem 0;
-      border: 2px dashed #ccc;
-      background: #eee;
-      object-fit: cover;
+      display: block; width: 100%; height: auto;
+      margin: 2rem 0; border: 2px dashed #ccc;
+      background: #eee; object-fit: cover;
     }
 
     /* Footer */
     .site-footer {
-      border-top: 1px solid #eee;
-      background: #fafafa;
+      border-top: 1px solid #eee; background: #fafafa;
     }
     .site-footer .container {
-      text-align: center;
-      padding: 2rem 0;
+      text-align: center; padding: 2rem 0;
     }
 
-    /* Responsive */
+    /* Mobile menu behavior */
     @media (max-width: 600px) {
-      .site-header .container {
-        padding: 0.75rem 1rem;
-      }
-      .logo {
-        height: 32px;
-      }
+      .site-header .container { padding: 0.75rem 1rem; }
+      .logo { height: 32px; }
+
+      /* hide nav by default */
       .site-nav ul {
         display: none;
         flex-direction: column;
-        background: #fff;
         position: absolute;
-        top: 100%;
-        right: 1rem;
+        top: 100%; right: 0;
+        background: #fff;
         border: 1px solid #eee;
         border-radius: 0.5rem;
         box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        width: 200px;
       }
-      .site-nav ul.open {
+      /* show when nav has open class */
+      .site-nav.open ul {
         display: flex;
       }
-      .hamburger {
-        display: block;
-      }
+
+      .hamburger { display: block; }
     }
   </style>
 </head>
@@ -171,13 +145,7 @@
   <!-- Header with logo + nav -->
   <header class="site-header">
     <div class="container">
-      <a href="/">
-        <img
-          class="logo"
-          src="img/file_00000000977861fabb3034aadeedd3a4.png"
-          alt="StorySmith logo"
-        />
-      </a>
+      <a href="/"><img class="logo" src="img/logo.png" alt="StorySmith logo"/></a>
       <div class="nav-tools">
         <button class="hamburger" aria-label="Toggle menu">☰</button>
         <nav class="site-nav">
@@ -194,11 +162,7 @@
 
   <!-- Hero Section -->
   <div class="hero">
-    <img
-      class="image-placeholder"
-      src="img/file_00000000527062309dd6e30627513295.png"
-      alt="Hero illustration placeholder"
-    />
+    <img class="image-placeholder" src="img/hero.png" alt="Hero illustration placeholder"/>
     <h1>Meet StorySmith</h1>
     <p>Your personal co-author for writing heartfelt short stories—no experience required.</p>
     <button class="btn-primary">Try StorySmith Free →</button>
@@ -206,7 +170,7 @@
 
   <!-- Main Content -->
   <div class="container">
-    <!-- Features Section -->
+    <!-- Features -->
     <section class="section" id="features">
       <h2>Features</h2>
       <div class="features">
@@ -233,14 +197,10 @@
       </div>
     </section>
 
-    <!-- Lifestyle Image Placeholder -->
-    <img
-      class="image-placeholder"
-      src="img/file_00000000adb062308a031648dd46003b.png"
-      alt="Lifestyle collage placeholder"
-    />
+    <!-- Lifestyle -->
+    <img class="image-placeholder" src="img/lifestyle.png" alt="Lifestyle collage placeholder"/>
 
-    <!-- How It Works Section -->
+    <!-- How It Works -->
     <section class="section" id="how-it-works">
       <h2>How It Works</h2>
       <div class="steps">
@@ -267,14 +227,10 @@
       </div>
     </section>
 
-    <!-- Sneak Peek Carousel Placeholder -->
-    <img
-      class="image-placeholder"
-      src="img/file_00000000d19c62309bde1be94495a098.png"
-      alt="Sneak peek carousel placeholder"
-    />
+    <!-- Carousel -->
+    <img class="image-placeholder" src="img/carousel.png" alt="Sneak peek carousel placeholder"/>
 
-    <!-- Call to Action -->
+    <!-- CTA -->
     <div class="cta">
       <h2>Ready to Tell Your Story?</h2>
       <p>Join hundreds of women unlocking their creativity with StorySmith. No writing degree required—just your imagination.</p>
@@ -282,26 +238,19 @@
     </div>
   </div>
 
-  <!-- Footer with logo -->
+  <!-- Footer -->
   <footer class="site-footer">
     <div class="container">
-      <img
-        class="logo"
-        src="img/file_00000000977861fabb3034aadeedd3a4.png"
-        alt="StorySmith logo"
-      />
-      <p style="color: #888; font-size: 0.9rem; margin: 1rem 0 0;">
-        © 2025 StorySmith. All rights reserved.
-      </p>
+      <img class="logo" src="img/logo.png" alt="StorySmith logo"/>
+      <p style="color:#888;font-size:0.9rem;margin-top:1rem;">© 2025 StorySmith. All rights reserved.</p>
     </div>
   </footer>
 
   <script>
-    // Toggle mobile menu
+    const nav = document.querySelector('.site-nav');
     document.querySelector('.hamburger').addEventListener('click', () => {
-      document.querySelector('.site-nav ul').classList.toggle('open');
+      nav.classList.toggle('open');
     });
   </script>
-
 </body>
 </html>
