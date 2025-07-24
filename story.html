@@ -31,9 +31,7 @@
       justify-content: flex-start;
       padding: 1rem 2rem;
     }
-
     .logo { height: 100px; }
-
     .nav-tools {
       margin-left: auto;
       display: flex;
@@ -85,13 +83,42 @@
     }
     .btn-primary:hover { background: var(--accent-hover); }
     .book {
-      width: 300px; height: 400px; margin: 2rem auto; position: relative; perspective: 1000px;
+      width: 300px;
+      height: 400px;
+      margin: 2rem auto;
+      position: relative;
+      perspective: 1000px;
+      border: 4px solid var(--accent);
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
     .book .page {
-      position: absolute; width: 100%; height: 100%; padding: 1rem; background: #fff;
-      border: 1px solid #ddd; border-radius: 0.25rem; box-sizing: border-box; backface-visibility: hidden; display: none;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      padding: 1rem;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 0.25rem;
+      box-sizing: border-box;
+      backface-visibility: hidden;
+      display: none;
     }
     .book .page.show { display: block; animation: turn 0.6s forwards; }
+    .cover {
+      background: var(--primary);
+      border: 2px solid var(--accent);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+      font-weight: bold;
+    }
+    .cover-text { margin-bottom: 1rem; }
+    #pageNumber { text-align:center; margin-top:0.5rem; font-weight:bold; }
+    .file-name { margin-left:0.5rem; font-style:italic; }
+
     @keyframes turn { from { transform: rotateY(0deg); } to { transform: rotateY(-180deg); } }
     textarea { width: 100%; height: 120px; margin-bottom: 0.5rem; }
     .controls { text-align: center; }
@@ -137,11 +164,15 @@
   <h1 style="text-align:center">Interactive Storybook</h1>
   <p style="text-align:center" id="instructions">Use the buttons below to turn pages.</p>
   <div id="book" class="book">
-    <div class="page show" data-index="0">Cover</div>
+    <div class="page show cover" data-index="0">
+      <div class="cover-text">Cover</div>
+      <div class="cover-image"></div>
+    </div>
     <div class="page" data-index="1">Page 1</div>
     <div class="page" data-index="2">Page 2</div>
     <div class="page" data-index="3">Page 3</div>
   </div>
+  <p id="pageNumber">Page 1 of 4</p>
   <div class="controls">
     <button id="prevPage" class="btn-primary" disabled>Prev Page</button>
     <button id="nextPage" class="btn-primary" style="margin-left:0.5rem;">Next Page</button>
@@ -150,6 +181,7 @@
     <label class="btn-primary file-label">Choose File
       <input type="file" id="pageImage" accept="image/*" />
     </label>
+    <span id="fileName" class="file-name">No file chosen.</span>
     <br/>
     <button id="setPage" class="btn-primary">Set Page</button>
     <button id="finishStory" class="btn-primary" style="margin-left:0.5rem;">Finish My Story</button>
@@ -169,15 +201,23 @@
 
   const pages = document.querySelectorAll('.book .page');
   const instructions = document.getElementById('instructions');
+  const pageNumEl = document.getElementById('pageNumber');
   let currentPage = 0;
   const prevBtn = document.getElementById('prevPage');
   const nextBtn = document.getElementById('nextPage');
+
+  updatePageNumber();
+
+  function updatePageNumber() {
+    pageNumEl.textContent = `Page ${currentPage + 1} of ${pages.length}`;
+  }
 
   function showPage(i) {
     pages.forEach((p, idx) => p.classList.toggle('show', idx === i));
     prevBtn.disabled = i === 0;
     nextBtn.disabled = i === pages.length - 1;
     instructions.textContent = nextBtn.disabled ? "You've reached the end of the book." : 'Use the buttons below to turn pages.';
+    updatePageNumber();
   }
 
   prevBtn.addEventListener('click', () => {
@@ -196,15 +236,37 @@
 
   const pageText = document.getElementById('pageText');
   const pageImage = document.getElementById('pageImage');
+  const fileName = document.getElementById('fileName');
+  pageImage.addEventListener('change', () => {
+    fileName.textContent = pageImage.files[0] ? pageImage.files[0].name : 'No file chosen.';
+  });
   document.getElementById('setPage').addEventListener('click', () => {
     const text = pageText.value.trim();
     const file = pageImage.files[0];
     const page = pages[currentPage];
-    if (text && file) {
+
+    if (currentPage !== 0 && text && file) {
       alert('Please provide either text or an image, not both.');
       return;
     }
-    if (file) {
+
+    if (currentPage === 0) {
+      let html = '';
+      if (text) html += `<div class="cover-text">${text}</div>`;
+      const place = () => { if (!html) html = '<div class="cover-text"></div>'; };
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = e => {
+          place();
+          html += `<img src="${e.target.result}" class="cover-image" style="max-width:100%;height:auto;"/>`;
+          page.innerHTML = html;
+        };
+        reader.readAsDataURL(file);
+      } else {
+        place();
+        page.innerHTML = html;
+      }
+    } else if (file) {
       const reader = new FileReader();
       reader.onload = e => {
         page.innerHTML = `<img src="${e.target.result}" style="max-width:100%;height:auto;"/>`;
@@ -239,6 +301,7 @@
 <h1 style="text-align:center">Your Story</h1>
 <p style="text-align:center" id="instructions">Use the buttons below to turn pages.</p>
 <div id="book" class="book">${pageDivs}</div>
+<p id="pageNumber"></p>
 <div class="controls"><button id="prevPage" class="btn-primary" disabled>Prev Page</button><button id="nextPage" class="btn-primary" style="margin-left:0.5rem;">Next Page</button></div>
 </div>
 <footer class="site-footer">
@@ -249,13 +312,16 @@
 </footer>
 <script>
 const pages=document.querySelectorAll('.book .page');
+const pageNum=document.getElementById('pageNumber');
 let currentPage=0;
 const prevBtn=document.getElementById('prevPage');
 const nextBtn=document.getElementById('nextPage');
 const instructions=document.getElementById('instructions');
-function showPage(i){pages.forEach((p,idx)=>p.classList.toggle('show',idx===i));prevBtn.disabled=i===0;nextBtn.disabled=i===pages.length-1;instructions.textContent=nextBtn.disabled?"You've reached the end of the book.":'Use the buttons below to turn pages.';}
+function updateNum(){pageNum.textContent=`Page ${currentPage+1} of ${pages.length}`;}
+function showPage(i){pages.forEach((p,idx)=>p.classList.toggle('show',idx===i));prevBtn.disabled=i===0;nextBtn.disabled=i===pages.length-1;instructions.textContent=nextBtn.disabled?"You've reached the end of the book.":'Use the buttons below to turn pages.';updateNum();}
 prevBtn.addEventListener('click',()=>{if(currentPage>0){currentPage--;showPage(currentPage);}});
 nextBtn.addEventListener('click',()=>{if(currentPage<pages.length-1){currentPage++;showPage(currentPage);}});
+updateNum();
 </script>
 </body>
 </html>`;
@@ -266,6 +332,13 @@ nextBtn.addEventListener('click',()=>{if(currentPage<pages.length-1){currentPage
     const html = buildStoryHtml(contents);
     const blob = new Blob([html], {type: 'text/html'});
     const url = URL.createObjectURL(blob);
+    const filename = `story-${Math.random().toString(36).slice(2,10)}.html`;
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
     window.open(url, '_blank');
   });
 </script>
