@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>StorySmith — Storybook</title>
+  <style>
+    :root {
+      --primary: #f8e1e7;
+      --accent: #cfa4c9;
+      --accent-hover: #b88fb5;
+      --text-dark: #333;
+      --bg: #fff;
+    }
+    body {
+      margin: 0;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      color: var(--text-dark);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+    /* Header */
+    .site-header {
+      background: #fff;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    }
+    .site-header .container {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 1rem 2rem;
+    }
+    .logo {
+      height: 100px;
+    }
+    .nav-tools {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+    .site-nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+      margin: 0;
+      padding: 0;
+      justify-content: center;
+    }
+    .site-nav ul li a {
+      display: inline-block;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.25rem;
+      text-decoration: none;
+      color: var(--text-dark);
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: background 0.2s, color 0.2s;
+    }
+    .site-nav ul li a:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+    .hamburger {
+      display: none;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-dark);
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 2rem;
+    }
+
+    /* Storybook */
+    .book {
+      width: 300px;
+      height: 400px;
+      margin: 2rem auto;
+      position: relative;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+    .book .page {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      padding: 1rem;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 0.25rem;
+      box-sizing: border-box;
+      backface-visibility: hidden;
+      display: none;
+    }
+    .book .page.show {
+      display: block;
+      animation: turn 0.6s forwards;
+    }
+    @keyframes turn {
+      from { transform: rotateY(0deg); }
+      to { transform: rotateY(-180deg); }
+    }
+
+    textarea {
+      width: 100%;
+      height: 120px;
+      margin-bottom: 0.5rem;
+    }
+
+    .controls {
+      text-align: center;
+    }
+    .site-footer {
+      border-top: 1px solid #eee;
+      background: #fafafa;
+    }
+    .site-footer .container {
+      text-align: center;
+      padding: 2rem 0;
+    }
+
+    .logo-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .site-title {
+      font-family: 'Pacifico', cursive;
+      font-size: 2.5rem;
+      color: var(--text-dark);
+      margin-left: 0.5rem;
+      line-height: 1;
+    }
+
+    @media (max-width: 600px) {
+      .site-header .container {
+        padding: 0.75rem 1rem;
+      }
+      .logo {
+        height: 100px;
+      }
+      .site-nav ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: #fff;
+        border: 1px solid #eee;
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        width: 200px;
+      }
+      .site-nav.open ul {
+        display: flex;
+      }
+      .hamburger {
+        display: block;
+      }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+</head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="logo-link">
+      <img class="logo" src="img/file_00000000977861fabb3034aadeedd3a4.png" alt="StorySmith logo" />
+      <span class="site-title">StorySmith</span>
+    </a>
+    <div class="nav-tools">
+      <button class="hamburger" aria-label="Toggle menu">☰</button>
+      <nav class="site-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="story.html">Storybook</a></li>
+          <li><a href="https://chatgpt.com/g/g-6881d51dc0a48191b40898ca69360d5a-storysmith">Start Your Story</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+<div class="container">
+  <h1 style="text-align:center">Interactive Storybook</h1>
+  <p style="text-align:center" id="instructions">Tap or click the book to turn the page.</p>
+  <div id="book" class="book">
+    <div class="page show" data-index="0">Cover</div>
+    <div class="page" data-index="1">Page 1</div>
+    <div class="page" data-index="2">Page 2</div>
+    <div class="page" data-index="3">Page 3</div>
+  </div>
+  <div class="controls">
+    <textarea id="pageText" placeholder="Page text"></textarea>
+    <input type="file" id="pageImage" accept="image/*"/>
+    <br />
+    <button id="setPage" class="btn-primary">Set Page</button>
+    <button id="finishStory" class="btn-primary" style="margin-left:0.5rem;">Finish My Story</button>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="container">
+    <img class="logo" src="img/file_00000000977861fabb3034aadeedd3a4.png" alt="StorySmith logo" />
+    <p style="color:#888;font-size:0.9rem;margin-top:1rem;">© 2025 StorySmith. All rights reserved.</p>
+  </div>
+</footer>
+<script>
+  const nav = document.querySelector('.site-nav');
+  document.querySelector('.hamburger').addEventListener('click', () => {
+    nav.classList.toggle('open');
+  });
+
+  const pages = document.querySelectorAll('.book .page');
+  const instructions = document.getElementById('instructions');
+  let currentPage = 0;
+  function showPage(i) {
+    pages.forEach((p, idx) => {
+      p.classList.toggle('show', idx === i);
+    });
+  }
+  document.getElementById('book').addEventListener('click', () => {
+    if (currentPage < pages.length - 1) {
+      currentPage++;
+      showPage(currentPage);
+      if (currentPage === pages.length - 1) {
+        instructions.textContent = 'You\'ve reached the end of the book.';
+      }
+    }
+  });
+
+  const pageText = document.getElementById('pageText');
+  const pageImage = document.getElementById('pageImage');
+  document.getElementById('setPage').addEventListener('click', () => {
+    const text = pageText.value.trim();
+    const file = pageImage.files[0];
+    const page = pages[currentPage];
+    if (text && file) {
+      alert('Please provide either text or an image, not both.');
+      return;
+    }
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = e => {
+        page.innerHTML = `<img src="${e.target.result}" style="max-width:100%;height:auto;"/>`;
+      };
+      reader.readAsDataURL(file);
+    } else {
+      page.textContent = text || ' '; // allow clearing
+    }
+  });
+
+  document.getElementById('finishStory').addEventListener('click', () => {
+    let html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Your Story</title></head><body>';
+    pages.forEach(p => {
+      html += `<div>${p.innerHTML}</div>`;
+    });
+    html += '</body></html>';
+    const blob = new Blob([html], {type: 'text/html'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'story.html';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  });
+</script>
+</body>
+</html>
