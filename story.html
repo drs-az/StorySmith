@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StorySmith — Storybook</title>
+  <style>
+    :root {
+      --primary: #f8e1e7;
+      --accent: #cfa4c9;
+      --accent-hover: #b88fb5;
+      --text-dark: #333;
+      --bg: #fff;
+    }
+    body {
+      margin: 0;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      color: var(--text-dark);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+    .site-header {
+      background: #fff;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    }
+    .site-header .container {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 1rem 2rem;
+    }
+    .logo { height: 100px; }
+    .nav-tools {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+    .site-nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+      margin: 0;
+      padding: 0;
+      justify-content: center;
+    }
+    .site-nav ul li a {
+      display: inline-block;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.25rem;
+      text-decoration: none;
+      color: var(--text-dark);
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: background 0.2s, color 0.2s;
+    }
+    .site-nav ul li a:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+    .hamburger {
+      display: none;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-dark);
+    }
+    .container { max-width: 800px; margin: auto; padding: 2rem; }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.375rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      text-decoration: none;
+    }
+    .btn-primary:hover { background: var(--accent-hover); }
+    .book {
+      width: 300px;
+      height: 400px;
+      margin: 2rem auto;
+      position: relative;
+      perspective: 1000px;
+      border: 4px solid var(--accent);
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .book .page {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      padding: 1rem;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 0.25rem;
+      box-sizing: border-box;
+      backface-visibility: hidden;
+      display: none;
+    }
+    .book .page.show { display: block; animation: turn 0.6s forwards; }
+    .cover {
+      background: var(--primary);
+      border: 2px solid var(--accent);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+      font-weight: bold;
+    }
+    .cover-text { margin-bottom: 1rem; }
+    #pageNumber { text-align:center; margin-top:0.5rem; font-weight:bold; }
+    .file-name { margin-left:0.5rem; font-style:italic; }
+    @keyframes turn { from { transform: rotateY(0deg); } to { transform: rotateY(-180deg); } }
+    textarea { width: 100%; height: 120px; margin-bottom: 0.5rem; }
+    .controls { text-align: center; }
+    .file-label { display:inline-block; margin-bottom:0.5rem; }
+    .file-label input { display:none; }
+    .site-footer { border-top: 1px solid #eee; background: #fafafa; }
+    .site-footer .container { text-align: center; padding: 2rem 0; }
+    .logo-link { display:flex; align-items:center; text-decoration:none; }
+    .site-title { font-family: 'Pacifico', cursive; font-size: 2.5rem; color: var(--text-dark); margin-left: 0.5rem; line-height: 1; }
+    @media (max-width: 600px) {
+      .site-header .container { padding: 0.75rem 1rem; }
+      .logo { height: 100px; }
+      .site-nav ul {
+        display: none; flex-direction: column; position: absolute; top: 100%; right: 0; background: #fff;
+        border: 1px solid #eee; border-radius: 0.5rem; box-shadow: 0 2px 6px rgba(0,0,0,0.1); width: 200px;
+      }
+      .site-nav.open ul { display: flex; }
+      .hamburger { display: block; }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+</head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="logo-link">
+      <img class="logo" src="img/file_00000000977861fabb3034aadeedd3a4.png" alt="StorySmith logo" />
+      <span class="site-title">StorySmith</span>
+    </a>
+    <div class="nav-tools">
+      <button class="hamburger" aria-label="Toggle menu">☰</button>
+      <nav class="site-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="story.html">Storybook</a></li>
+          <li><a href="https://chatgpt.com/g/g-6881d51dc0a48191b40898ca69360d5a-storysmith">Start Your Story</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+<div class="container">
+  <h1 style="text-align:center">Interactive Storybook</h1>
+  <p style="text-align:center" id="instructions">Use the buttons below to turn pages.</p>
+  <div id="book" class="book">
+    <div class="page show cover" data-index="0">
+      <div class="cover-text">Cover</div>
+      <div class="cover-image"></div>
+    </div>
+    <div class="page" data-index="1">Page 1</div>
+    <div class="page" data-index="2">Page 2</div>
+    <div class="page" data-index="3">Page 3</div>
+  </div>
+  <p id="pageNumber">Page 1 of 4</p>
+  <div class="controls">
+    <button id="prevPage" class="btn-primary" disabled>Prev Page</button>
+    <button id="nextPage" class="btn-primary" style="margin-left:0.5rem;">Next Page</button>
+    <br/><br/>
+    <textarea id="pageText" placeholder="Page text"></textarea>
+    <label class="btn-primary file-label">Choose File
+      <input type="file" id="pageImage" accept="image/*" />
+    </label>
+    <span id="fileName" class="file-name">No file chosen.</span>
+    <br/>
+    <button id="setPage" class="btn-primary">Set Page</button>
+    <button id="finishStory" class="btn-primary" style="margin-left:0.5rem;">Finish My Story</button>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="container">
+    <img class="logo" src="img/file_00000000977861fabb3034aadeedd3a4.png" alt="StorySmith logo" />
+    <p style="color:#888;font-size:0.9rem;margin-top:1rem;">© 2025 StorySmith. All rights reserved.</p>
+  </div>
+</footer>
+<script>
+  const nav = document.querySelector('.site-nav');
+  document.querySelector('.hamburger').addEventListener('click', () => {
+    nav.classList.toggle('open');
+  });
+
+  const pages = document.querySelectorAll('.book .page');
+  const instructions = document.getElementById('instructions');
+  const pageNumEl = document.getElementById('pageNumber');
+  let currentPage = 0;
+  const prevBtn = document.getElementById('prevPage');
+  const nextBtn = document.getElementById('nextPage');
+
+  updatePageNumber();
+
+  function updatePageNumber() {
+    pageNumEl.textContent = `Page ${currentPage + 1} of ${pages.length}`;
+  }
+
+  function showPage(i) {
+    pages.forEach((p, idx) => p.classList.toggle('show', idx === i));
+    prevBtn.disabled = i === 0;
+    nextBtn.disabled = i === pages.length - 1;
+    instructions.textContent = nextBtn.disabled ? "You've reached the end of the book." : 'Use the buttons below to turn pages.';
+    updatePageNumber();
+  }
+
+  prevBtn.addEventListener('click', () => {
+    if (currentPage > 0) {
+      currentPage--;
+      showPage(currentPage);
+    }
+  });
+
+  nextBtn.addEventListener('click', () => {
+    if (currentPage < pages.length - 1) {
+      currentPage++;
+      showPage(currentPage);
+    }
+  });
+
+  const pageText = document.getElementById('pageText');
+  const pageImage = document.getElementById('pageImage');
+  const fileName = document.getElementById('fileName');
+  pageImage.addEventListener('change', () => {
+    fileName.textContent = pageImage.files[0] ? pageImage.files[0].name : 'No file chosen.';
+  });
+  document.getElementById('setPage').addEventListener('click', () => {
+    const text = pageText.value.trim();
+    const file = pageImage.files[0];
+    const page = pages[currentPage];
+
+    if (currentPage !== 0 && text && file) {
+      alert('Please provide either text or an image, not both.');
+      return;
+    }
+
+    if (currentPage === 0) {
+      let html = '';
+      if (text) html += `<div class="cover-text">${text}</div>`;
+      const place = () => { if (!html) html = '<div class="cover-text"></div>'; };
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = e => {
+          place();
+          html += `<img src="${e.target.result}" class="cover-image" style="max-width:100%;height:auto;"/>`;
+          page.innerHTML = html;
+        };
+        reader.readAsDataURL(file);
+      } else {
+        place();
+        page.innerHTML = html;
+      }
+    } else if (file) {
+      const reader = new FileReader();
+      reader.onload = e => {
+        page.innerHTML = `<img src="${e.target.result}" style="max-width:100%;height:auto;"/>`;
+      };
+      reader.readAsDataURL(file);
+    } else {
+      page.textContent = text || ' ';
+    }
+  });
+
+  const css = document.querySelector('style').innerHTML;
+  function buildStoryHtml(contents) {
+    const pageDivs = contents.map((c,i)=>`<div class="page${i===0?' show':''}" data-index="${i}">${c}</div>`).join('');
+    return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>StorySmith — Your Story</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<style>${css}</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="logo-link">
+      <img class="logo" src="img/file_00000000977861fabb3034aadeedd3a4.png" alt="StorySmith logo" />
+      <span class="site-title">StorySmith</span>
+    </a>
+  </div>
+</header>
+<div class="container">
+<h1 style="text-align:center">Your Story</h1>
+<p style="text-align:center" id="instructions">Use the buttons below to turn pages.</p>
+<div id="book" class="book">${pageDivs}</div>
+<p id="pageNumber"></p>
+<div class="controls"><button id="prevPage" class="btn-primary" disabled>Prev Page</button><button id="nextPage" class="btn-primary" style="margin-left:0.5rem;">Next Page</button></div>
+</div>
+<footer class="site-footer">
+  <div class="container">
+    <img class="logo" src="img/file_00000000977861fabb3034aadeedd3a4.png" alt="StorySmith logo" />
+    <p style="color:#888;font-size:0.9rem;margin-top:1rem;">© 2025 StorySmith. All rights reserved.</p>
+  </div>
+</footer>
+<script>
+const pages=document.querySelectorAll('.book .page');
+const pageNum=document.getElementById('pageNumber');
+let currentPage=0;
+const prevBtn=document.getElementById('prevPage');
+const nextBtn=document.getElementById('nextPage');
+const instructions=document.getElementById('instructions');
+function updateNum(){pageNum.textContent=`Page ${currentPage+1} of ${pages.length}`;}
+function showPage(i){pages.forEach((p,idx)=>p.classList.toggle('show',idx===i));prevBtn.disabled=i===0;nextBtn.disabled=i===pages.length-1;instructions.textContent=nextBtn.disabled?"You've reached the end of the book.":'Use the buttons below to turn pages.';updateNum();}
+prevBtn.addEventListener('click',()=>{if(currentPage>0){currentPage--;showPage(currentPage);}});
+nextBtn.addEventListener('click',()=>{if(currentPage<pages.length-1){currentPage++;showPage(currentPage);}});
+updateNum();
+<\/script>
+</body>
+</html>`;
+  }
+
+  document.getElementById('finishStory').addEventListener('click', () => {
+    const contents = Array.from(pages).map(p => p.innerHTML);
+    const html = buildStoryHtml(contents);
+    const blob = new Blob([html], {type: 'text/html'});
+    const url = URL.createObjectURL(blob);
+    const filename = `story-${Math.random().toString(36).slice(2,10)}.html`;
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.open(url, '_blank');
+  });
+</script>
+</body>
+</html>
