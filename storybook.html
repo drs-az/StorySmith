@@ -205,6 +205,7 @@
       padding: 1rem;
       font-family: Georgia, 'Times New Roman', serif;
       text-align: center;
+      overflow-y: auto;
       transform-style: preserve-3d;
       transition: transform 0.4s ease-in-out;
     }
@@ -316,8 +317,16 @@
     function renderPage() {
       const page = pages[currentPage];
       if (page.type === 'image') {
+        pageDisplay.style.overflowY = 'hidden';
+        pageDisplay.style.alignItems = 'center';
+        pageDisplay.style.justifyContent = 'center';
+        pageDisplay.style.textAlign = 'center';
         pageDisplay.innerHTML = `<img src="${page.src}" alt="" />`;
       } else {
+        pageDisplay.style.overflowY = 'auto';
+        pageDisplay.style.alignItems = 'flex-start';
+        pageDisplay.style.justifyContent = 'flex-start';
+        pageDisplay.style.textAlign = 'left';
         pageDisplay.innerHTML = `<p>${page.content}</p>`;
       }
       prevBtn.disabled = currentPage === 0;
